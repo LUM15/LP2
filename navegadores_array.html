@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--Local em que fica armazenado o conteudo a ser renderizado no navegador-->
+<!--Local que recebe a <tag> que inidica a lingua da pagina-->
+<html lang="pt-br">
+	<!--Local em que ficarao armazenadas as informacoes que serao passadas ao navegador-->
+	<head>
+		<!--<meta> para padrao de caracteres da pagina-->
+		<meta charset="UTF-8">
+		<!--<link> para indicar o arquivo CSS que personalizara o documento HTML-->
+		<link rel="stylesheet" href="reset.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<canvas width="1280" height="800"></canvas>
+		<script>
+			function fundo(x, y, largura, altura, cor) {
+				var tela = document.querySelector('canvas');
+				var pincel = tela.getContext('2d');
+
+				pincel.fillStyle = 'rgb(22, 22, 22)';
+				pincel.fillRect(x, y, largura, altura);
+			}
+			
+			function desenhaRetangulo(x, y, largura, altura, cor) {
+				var tela = document.querySelector('canvas');
+				var pincel = tela.getContext('2d');
+
+				pincel.fillStyle=cor;
+				pincel.fillRect(x,y, largura, altura);
+				<!-- pincel.strokeStyle = 'black'; -->
+				<!-- pincel.strokeRect(x,y, largura, altura); -->
+			}
+
+			function desenhaTexto(x, y, texto, cor_fonte) {
+				var tela = document.querySelector('canvas');
+				var pincel = tela.getContext('2d');
+
+				pincel.font ='25px Consolas';
+				pincel.fillStyle = cor_fonte;
+				pincel.fillText(texto, x, y);    
+			}
+			
+			function plotarDados(horizontal, vertical, largura, altura, dados, cores){
+				for (var i = 0; i < dados.length; i++){
+					desenhaRetangulo(horizontal, vertical, largura, altura * dados[i], cores[i]);
+					vertical += altura * dados[i];
+				}
+			}
+			
+			fundo(0, 0, 1280, 800);
+			var altura = 250;
+			var largura = 125;
+			var x = 415;
+			var y = 450;
+			//cores
+			var cores_navegadores = ['rgb(255, 0, 0)', 'rgb(25, 50, 115)', 'rgb(255, 255, 0)', 'rgb(0, 255, 0)'];
+			//nome dos navegadores
+			var nomes_navegadores = ['Chrome', 'Firefox', 'Safari', 'Outros'];
+			//Em 2015: 50% Chrome, 25% Firefox, 20% Safari, 5% Outros (Opera, IE, etc).
+			var dados_2015 = [0.5, 0.25, 0.20, 0.05];
+			//Em 2016: 65% Chrome, 20% Firefox, 13% Safari, 2% Outros (Opera, IE, Edge, etc).
+			var dados_2016 = [0.65, 0.20, 0.13, 0.02];
+			
+			var header = 'Alura';
+			var descricao = 'Razão de navegadores utilizados pelos alunos em 2015 vs 2016!';
+			desenhaTexto(600, 75, header, 'white');	
+			desenhaTexto(250, 275, descricao, 'white');	
+				
+			//'2015'	
+			desenhaTexto(445, 440, '2015', 'white');
+			
+			<!-- for (var i = 0; i < dados_2015.length; i++){ -->
+				<!-- desenhaRetangulo(x, y, largura, altura * dados_2015[i], cores_navegadores[i]); -->
+				<!-- y += altura * dados_2015[i]; -->
+			<!-- } -->
+			plotarDados(x, y, largura, altura, dados_2015, cores_navegadores);
+			
+			x = 740;
+			y = 450;
+			
+			//'2016'	
+			desenhaTexto(775, 440, '2016', 'white');
+			
+			for (var i = 0; i < dados_2016.length; i++){
+				desenhaRetangulo(x, y, largura, altura * dados_2016[i], cores_navegadores[i]);
+				y += altura * dados_2016[i];
+			}
+			
+			var a = 275;
+			var b = 750;
+			
+			for (var i = 0; i < cores_navegadores.length; i++){
+				desenhaRetangulo(a, b, 10, 2, cores_navegadores[i]);
+				desenhaTexto(a + 15, b  + 8, nomes_navegadores[i], cores_navegadores[i]);
+				a += 200;
+			}
+			</script>
+	</body>
+</html>
