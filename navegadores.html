@@ -1,50 +1,93 @@
-<canvas width="600" height="400"></canvas>
+<!DOCTYPE html>
+<!--Local em que fica armazenado o conteudo a ser renderizado no navegador-->
+<!--Local que recebe a <tag> que inidica a lingua da pagina-->
+<html lang="pt-br">
+	<!--Local em que ficarao armazenadas as informacoes que serao passadas ao navegador-->
+	<head>
+		<!--<meta> para padrao de caracteres da pagina-->
+		<meta charset="UTF-8">
+		<!--<link> para indicar o arquivo CSS que personalizara o documento HTML-->
+		<link rel="stylesheet" href="reset.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<canvas width="600" height="400"></canvas>
+		<script>
+			function fundo(x, y, largura, altura, cor) {
+				var tela = document.querySelector('canvas');
+				var pincel = tela.getContext('2d');
 
-<script>
-	function fundo(x, y, largura, altura, cor) {
-		var tela = document.querySelector('canvas');
-		var pincel = tela.getContext('2d');
+				pincel.fillStyle = 'rgb(64, 64, 64)';
+				pincel.fillRect(x, y, largura, altura);
+			}
+			
+			function desenhaRetangulo(x, y, largura, altura, cor) {
+				var tela = document.querySelector('canvas');
+				var pincel = tela.getContext('2d');
 
-		pincel.fillStyle = cor;
-		pincel.fillRect(x, y, largura, altura);
-	}
-	
-	
-	function desenhaRetangulo(x, y, largura, altura, cor) {
-		var tela = document.querySelector('canvas');
-		var pincel = tela.getContext('2d');
+				pincel.fillStyle=cor;
+				pincel.fillRect(x,y, largura, altura);
+				<!-- pincel.strokeStyle = 'black'; -->
+				<!-- pincel.strokeRect(x,y, largura, altura); -->
+			}
 
-		pincel.fillStyle=cor;
-		pincel.fillRect(x,y, largura, altura);
-		pincel.strokeStyle = 'black';
-		pincel.strokeRect(x,y, largura, altura);
-	}
+			function desenhaTexto(x, y, texto, cor_fonte) {
+				var tela = document.querySelector('canvas');
+				var pincel = tela.getContext('2d');
 
-	function desenhaTexto(x, y, texto) {
-		var tela = document.querySelector('canvas');
-		var pincel = tela.getContext('2d');
-
-		pincel.font='15px Georgia';
-		pincel.fillStyle='white';
-		pincel.fillText(texto, x, y);    
-	}
-	
-	fundo(0, 0, 600, 400);
-	//cores
-	var cores_navegadores = ['red', 'orange', 'blue', 'green'];
-	//Em 2015: 50% Chrome, 25% Firefox, 20% Safari, 5% Outros (Opera, IE, etc).
-	var dados_2015 = [0.5, 0.25, 0.20, 0.05];
-	//Em 2016: 65% Chrome, 20% Firefox, 13% Safari, 2% Outros (Opera, IE, Edge, etc).
-	var dados_2016 = [0.65, 0.20, 0.13, 0.02];
-	
-	function desenharBarras(x, y, largura, altura, dados, cores){
-		for (var i = 0; i < dados.length; i++){
-			desenhaRetangulo(x, y, largura, altura * dados[i], cores[i]);
-			y += altura * dados[i];
-		}
-	}
-	
-	desenharBarras(100, 275, 100, [0.5, 0.25, 0.20, 0.05], ['red', 'orange', 'blue', 'green']);
-	
-	
-</script>
+				pincel.font ='15px Consolas';
+				pincel.fillStyle = cor_fonte;
+				pincel.fillText(texto, x, y);    
+			}
+			
+			fundo(0, 0, 600, 400);
+			var altura = 100;
+			var largura = 50;
+			var x = 75;
+			var y = 175;
+			//cores
+			var cores_navegadores = ['rgb(255, 0, 0)', 'rgb(0, 0, 255)', 'rgb(255, 255, 0)', 'rgb(0, 255, 0)'];
+			//nome dos navegadores
+			var nomes_navegadores = ['Chrome', 'Firefox', 'Safari', 'Outros'];
+			//Em 2015: 50% Chrome, 25% Firefox, 20% Safari, 5% Outros (Opera, IE, etc).
+			var dados_2015 = [0.5, 0.25, 0.20, 0.05];
+			//Em 2016: 65% Chrome, 20% Firefox, 13% Safari, 2% Outros (Opera, IE, Edge, etc).
+			var dados_2016 = [0.65, 0.20, 0.13, 0.02];
+			
+			var header = 'Alura';
+			var descricao = 'Razão de navegadores utilizados pelos alunos em 2015 vs 2016!';
+			desenhaTexto(185, 75, header, 'black');	
+			desenhaTexto(5, 115, descricao, 'black');	
+				
+			//'2015'	
+			desenhaTexto(84, 165, '2015', 'black');
+			
+			for (var i = 0; i < dados_2015.length; i++){
+				desenhaRetangulo(x, y, largura, altura * dados_2015[i], cores_navegadores[i]);
+				y += altura * dados_2015[i];
+			}
+			
+			altura = 100;
+			largura = 50;
+			x = 300;
+			y = 175;
+			
+			//'2016'	
+			desenhaTexto(309, 165, '2016', 'black');
+			
+			for (var i = 0; i < dados_2016.length; i++){
+				desenhaRetangulo(x, y, largura, altura * dados_2016[i], cores_navegadores[i]);
+				y += altura * dados_2016[i];
+			}
+			
+			var a = 75;
+			var b = 285;
+			
+			for (var i = 0; i < cores_navegadores.length; i++){
+				desenhaRetangulo(a, b, 7, 7, cores_navegadores[i]);
+				desenhaTexto(a + 12, b + 10, nomes_navegadores[i], cores_navegadores[i]);
+				a += 75;
+			}
+			</script>
+	</body>
+</html>
