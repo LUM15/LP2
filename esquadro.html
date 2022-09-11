@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--Local em que fica armazenado o conteudo a ser renderizado no navegador-->
+<!--Local que recebe a <tag> que inidica a lingua da pagina-->
+<html lang="pt-br">
+	<!--Local em que ficarao armazenadas as informacoes que serao passadas ao navegador-->
+	<head>
+		<!--<meta> para padrao de caracteres da pagina-->
+		<meta charset="UTF-8">
+		<!--<link> para indicar o arquivo CSS que personalizara o documento HTML-->
+		<link rel="stylesheet" href="reset.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<canvas width="1280" height="800"></canvas>
+		<script>
+			function fundo(x, y, largura, altura, cor) {
+				var tela = document.querySelector('canvas');
+				var pincel = tela.getContext('2d');
+
+				pincel.fillStyle = 'black';
+				pincel.fillRect(x, y, largura, altura);
+			}
+			
+			function desenhaEsquadro(xa, ya, cor) {
+			//a implementacao fica com vc :)
+				//Parte externa
+				pincel.fillStyle = cor;
+				pincel.beginPath();
+				pincel.moveTo(xa, ya);
+				pincel.lineTo(xa, ya + 350);
+				pincel.lineTo(xa + 350, ya + 350);
+				pincel.fill();
+	
+				//Parte interna
+				pincel.fillStyle = 'black';
+				pincel.beginPath();
+				pincel.moveTo(xa + 50, ya + 125);
+				pincel.lineTo(xa + 50, ya + 300);
+				pincel.lineTo(xa + 225, ya + 300);
+				pincel.fill();	
+			}
+			//inicia o fundo
+			fundo(0, 0, 1280, 800);
+			
+			var tela = document.querySelector('canvas');
+			var pincel = tela.getContext('2d');
+
+			desenhaEsquadro(10, 25, 'green');
+			desenhaEsquadro(400, 25, 'blue');
+			desenhaEsquadro(800, 25, 'orange');
+			desenhaEsquadro(10, 415, 'red');
+
+		</script>
+	</body>
+</html>
