@@ -68,11 +68,6 @@
 				
 			//'2015'	
 			desenhaTexto(445, 440, '2015', 'white');
-			
-			<!-- for (var i = 0; i < dados_2015.length; i++){ -->
-				<!-- desenhaRetangulo(x, y, largura, altura * dados_2015[i], cores_navegadores[i]); -->
-				<!-- y += altura * dados_2015[i]; -->
-			<!-- } -->
 			plotarDados(x, y, largura, altura, dados_2015, cores_navegadores);
 			
 			x = 740;
@@ -80,11 +75,7 @@
 			
 			//'2016'	
 			desenhaTexto(775, 440, '2016', 'white');
-			
-			for (var i = 0; i < dados_2016.length; i++){
-				desenhaRetangulo(x, y, largura, altura * dados_2016[i], cores_navegadores[i]);
-				y += altura * dados_2016[i];
-			}
+			plotarDados(x, y, largura, altura, dados_2016, cores_navegadores)
 			
 			var a = 275;
 			var b = 750;
