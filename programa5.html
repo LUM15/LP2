@@ -15,33 +15,36 @@
 		<script>
 			var tela = document.querySelector('canvas');
 			var pincel = tela.getContext('2d');
-			
+
 			function fundo(x, y, largura, altura, cor) {
 				pincel.fillStyle = 'black';
 				pincel.fillRect(x, y, largura, altura);
-		
+
 			}
-			
+
 			function desenhaCirculo(evento)	{
 				var coordX = evento.pageX - tela.offsetLeft;
 				var coordY = evento.pageY - tela.offsetTop;
 				pincel.fillStyle = 'red';
 				pincel.beginPath();
+				
 				//Valida se a tecla SHIFT esta pressionada
 				if(evento.shiftKey) {
-					pincel.arc(coordX, coordY, 30, 0, 2*3.14);
-				} else {
-					pincel.arc(coordX, coordY, 10, 0, 2*3.14);
-				}
+					raio += 10;
+				} 
+				pincel.arc(coordX, coordY, raio, 0, 2*3.14);
 				pincel.fill();
 			}
-			
+
 			//inicia o fundo
 			fundo(0, 0, 1280, 800);
 			
+			//Raio inicial
+			var raio = 10;
+
 			tela.onclick = desenhaCirculo;
-			
-			
+
+
 		</script>
 	</body>
 </html>
