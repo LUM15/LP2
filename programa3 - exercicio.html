@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--Local em que fica armazenado o conteudo a ser renderizado no navegador-->
+<!--Local que recebe a <tag> que inidica a lingua da pagina-->
+<html lang="pt-br">
+	<!--Local em que ficarao armazenadas as informacoes que serao passadas ao navegador-->
+	<head>
+		<!--<meta> para padrao de caracteres da pagina-->
+		<meta charset="UTF-8">
+		<!--<link> para indicar o arquivo CSS que personalizara o documento HTML-->
+		<link rel="stylesheet" href="reset.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<canvas width="1280" height="800"></canvas>
+		<script>
+			var tela = document.querySelector('canvas');
+			var pincel = tela.getContext('2d');
+			
+			function fundo(x, y, largura, altura, cor) {
+				pincel.fillStyle = 'black';
+				pincel.fillRect(x, y, largura, altura);
+			}
+			
+			function desenhaTexto() {
+				pincel.font ='25px Consolas';
+				pincel.fillStyle = 'white';
+				pincel.fillText('Cor: ', 10, 25);    
+			}
+			
+			function desenhaIndicador() {
+				pincel.fillStyle = corAtual;
+				pincel.beginPath();
+				pincel.arc(77, 17, 10, 0, 2*3.14);
+				pincel.fill();   
+			}
+			
+			function desenhaCirculo(evento)	{
+				var coordX = evento.pageX - tela.offsetLeft;
+				var coordY = evento.pageY - tela.offsetTop;
+				pincel.fillStyle = corAtual;
+				pincel.beginPath();
+				pincel.arc(coordX, coordY, 10, 0, 2*3.14);
+				pincel.fill();
+			}
+			
+			function mudaCor() {
+				posicao++;
+				if (posicao > 2) posicao = 0;
+				corAtual = cores[posicao];
+				desenhaIndicador();
+				return false;
+			}
+
+			
+			//inicia o fundo
+			fundo(0, 0, 1280, 800);
+			
+			//cores do pincel
+			var cores = ['blue', 'red', 'green'];
+			
+			//posicao no array de cor
+			var posicao = 0;
+			
+			//cor atual
+			var corAtual = cores[posicao];
+			
+			desenhaTexto();
+			desenhaIndicador();
+			
+			tela.onclick = desenhaCirculo;	
+			tela.oncontextmenu = mudaCor;
+		</script>
+	</body>
+</html>
