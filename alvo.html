@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--Local em que fica armazenado o conteudo a ser renderizado no navegador-->
+<!--Local que recebe a <tag> que inidica a lingua da pagina-->
+<html lang="pt-br">
+	<!--Local em que ficarao armazenadas as informacoes que serao passadas ao navegador-->
+	<head>
+		<!--<meta> para padrao de caracteres da pagina-->
+		<meta charset="UTF-8">
+		<!--<link> para indicar o arquivo CSS que personalizara o documento HTML-->
+		<link rel="stylesheet" href="reset.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<canvas width="1280" height="800"></canvas>
+		<script>
+			var tela = document.querySelector('canvas');
+			var pincel = tela.getContext('2d');
+
+			function fundo(x, y, largura, altura, cor) {
+				pincel.fillStyle = 'black';
+				pincel.fillRect(x, y, largura, altura);
+
+			}
+			
+			function desenhaCirculo(coordX, coordY, raio, cor)	{
+				pincel.fillStyle = cor;
+				pincel.beginPath();
+				pincel.arc(coordX, coordY, raio, 0, 2*Math.PI);
+				pincel.fill();
+			}
+			
+			function dispara(evento)	{
+				var coordX = evento.pageX - tela.offsetLeft;
+				var coordY = evento.pageY - tela.offsetTop;
+				
+				if (coordX >= xAlvo - raio && coordX <= xAlvo + raio && coordY >= yAlvo - raio && coordY <= yAlvo + raio) {
+					alert('Acertou!')
+				}
+			
+			}
+			//inicia o fundo
+			fundo(0, 0, 1280, 800);
+			
+			var raio = 10;
+			var xAlvo = 300;
+			var yAlvo = 200;
+			desenhaCirculo(xAlvo, yAlvo, raio + 20, 'red'); 		// maior 
+			desenhaCirculo(xAlvo, yAlvo, raio + 10, 'white');	// medio
+			desenhaCirculo(xAlvo, yAlvo, raio, 'red'); 			// menor 
+			
+			
+			tela.onclick = dispara;
+
+			
+		</script>
+	</body>
+</html>
