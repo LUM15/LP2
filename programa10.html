@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--Local em que fica armazenado o conteudo a ser renderizado no navegador-->
+<!--Local que recebe a <tag> que inidica a lingua da pagina-->
+<html lang="pt-br">
+	<!--Local em que ficarao armazenadas as informacoes que serao passadas ao navegador-->
+	<head>
+		<!--<meta> para padrao de caracteres da pagina-->
+		<meta charset="UTF-8">
+		<!--<link> para indicar o arquivo CSS que personalizara o documento HTML-->
+		<link rel="stylesheet" href="reset.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<canvas width="1280" height="800"></canvas>
+		<script>
+			var tela = document.querySelector('canvas');
+			var pincel = tela.getContext('2d');
+			function fundo(x, y, largura, altura, cor) {
+				pincel.fillStyle = 'black';
+				pincel.fillRect(x, y, largura, altura);
+			}
+			
+			function  desenhaCirculo(x, y, raio){
+				pincel.fillStyle = 'blue';
+				pincel.beginPath();
+				pincel.arc(x, y, raio, 0, 2 * Math.PI);
+				pincel.fill();
+			}
+			
+			//inicia o fundo
+			fundo(0, 0, 1280, 800);
+			
+			desenhaCirculo(20, 20, 10);
+		</script>
+	</body>
+</html>
