@@ -29,11 +29,15 @@
 			
 			}
 			
-			for (var x = 20; x < 1280; x++) {
+			var x = 20;
+			function atualizaTela(){
 				limpaTela();
 				desenhaCirculo(x, 300, 10);
-				
+				x++;
 			}
+			
+			setInterval(atualizaTela, 5);
+			
 		</script>
 	</body>
 </html>
