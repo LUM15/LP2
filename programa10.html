@@ -25,18 +25,24 @@
 			
 			function limpaTela(){
 			
-				pincel.clearRect(0, 0, 1280, 800);
+				pincel.clearRect(0, 0, 1250, 800);
 			
 			}
 			
 			var x = 20;
-			function atualizaTela(){
+			var sentido = 0;
+			function atualizaTela() {
+				if (x == 20) { 
+					sentido = 10;
+				} else if (x == 1200) {
+					sentido = -10;
+				}
 				limpaTela();
 				desenhaCirculo(x, 300, 10);
-				x++;
+				x += sentido;
 			}
 			
-			setInterval(atualizaTela, 5);
+			setInterval(atualizaTela, 20);
 			
 		</script>
 	</body>
