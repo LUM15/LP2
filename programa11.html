@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--Local em que fica armazenado o conteudo a ser renderizado no navegador-->
+<!--Local que recebe a <tag> que inidica a lingua da pagina-->
+<html lang="pt-br">
+	<!--Local em que ficarao armazenadas as informacoes que serao passadas ao navegador-->
+	<head>
+		<!--<meta> para padrao de caracteres da pagina-->
+		<meta charset="UTF-8">
+		<!--<link> para indicar o arquivo CSS que personalizara o documento HTML-->
+		<link rel="stylesheet" href="reset.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<canvas width="1280" height="800"></canvas>
+		<script>
+			var tela = document.querySelector('canvas');
+			var pincel = tela.getContext('2d');
+			
+			function  desenhaCirculo(x, y, raio){
+				pincel.fillStyle = 'red';
+				pincel.beginPath();
+				pincel.arc(x, y, raio, 0, 2 * Math.PI);
+				pincel.fill();
+			}
+			
+			function limpaTela(){
+			
+				pincel.clearRect(0, 0, 1250, 800);
+			
+			}
+			
+
+			var raio = 20;
+			var pulso = 0;
+			function atualizaTela() {
+				if (raio == 20) { 
+					pulso = 1;
+				} else if (raio == 30) {
+					pulso = -1;
+				}
+				limpaTela();
+				desenhaCirculo(640, 400, raio);
+				raio += pulso;
+			}
+			
+			setInterval(atualizaTela, 20);
+			
+		</script>
+	</body>
+</html>
