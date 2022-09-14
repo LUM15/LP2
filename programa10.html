@@ -15,10 +15,6 @@
 		<script>
 			var tela = document.querySelector('canvas');
 			var pincel = tela.getContext('2d');
-			function fundo(x, y, largura, altura, cor) {
-				pincel.fillStyle = 'black';
-				pincel.fillRect(x, y, largura, altura);
-			}
 			
 			function  desenhaCirculo(x, y, raio){
 				pincel.fillStyle = 'blue';
@@ -27,10 +23,17 @@
 				pincel.fill();
 			}
 			
-			//inicia o fundo
-			fundo(0, 0, 1280, 800);
+			function limpaTela(){
 			
-			desenhaCirculo(20, 20, 10);
+				pincel.clearRect(0, 0, 1280, 800);
+			
+			}
+			
+			for (var x = 20; x < 1280; x++) {
+				limpaTela();
+				desenhaCirculo(x, 300, 10);
+				
+			}
 		</script>
 	</body>
 </html>
