@@ -15,6 +15,10 @@
 		<script>
 			var tela = document.querySelector('canvas');
 			var pincel = tela.getContext('2d');
+			//Alvo
+			var xAlvo = mudaPosicaoAlvo(1280);
+			var yAlvo = mudaPosicaoAlvo(800);
+			var raio = 10;
 
 			function fundo(x, y, largura, altura, cor) {
 				pincel.fillStyle = 'black';
@@ -34,21 +38,30 @@
 				var coordY = evento.pageY - tela.offsetTop;
 				
 				if (coordX >= xAlvo - raio && coordX <= xAlvo + raio && coordY >= yAlvo - raio && coordY <= yAlvo + raio) {
-					alert('Acertou!')
+					console.log('Acertou!');
 				}
 			
 			}
-			//inicia o fundo
-			fundo(0, 0, 1280, 800);
 			
-			var raio = 10;
-			var xAlvo = 300;
-			var yAlvo = 200;
-			desenhaCirculo(xAlvo, yAlvo, raio + 20, 'red'); 		// maior 
-			desenhaCirculo(xAlvo, yAlvo, raio + 10, 'white');	// medio
-			desenhaCirculo(xAlvo, yAlvo, raio, 'red'); 			// menor 
+			function desenhaAlvo(xAlvo, yAlvo)	{
+				desenhaCirculo(xAlvo, yAlvo, raio + 20, 'red'); 	// maior 
+				desenhaCirculo(xAlvo, yAlvo, raio + 10, 'white');	// medio
+				desenhaCirculo(xAlvo, yAlvo, raio, 'red'); 			// menor 					
+			}
 			
+			function mudaPosicaoAlvo(maximo){
 			
+				return Math.floor(Math.random() * maximo);
+			}
+			
+			function atualizaTela() {
+				pincel.clearRect(0, 0, 1280, 800);
+				xAlvo = mudaPosicaoAlvo(1280);
+				yAlvo = mudaPosicaoAlvo(800);
+				desenhaAlvo(xAlvo, yAlvo, raio);
+			}
+			
+			setInterval(atualizaTela, 2500);
 			tela.onclick = dispara;
 
 			
