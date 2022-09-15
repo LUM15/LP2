@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--Local em que fica armazenado o conteudo a ser renderizado no navegador-->
+<!--Local que recebe a <tag> que inidica a lingua da pagina-->
+<html lang="pt-br">
+	<!--Local em que ficarao armazenadas as informacoes que serao passadas ao navegador-->
+	<head>
+		<!--<meta> para padrao de caracteres da pagina-->
+		<meta charset="UTF-8">
+		<!--<link> para indicar o arquivo CSS que personalizara o documento HTML-->
+		<link rel="stylesheet" href="reset.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<canvas width="1280" height="800"></canvas>
+		<script>
+			var tela = document.querySelector('canvas');
+			var pincel = tela.getContext('2d');
+			
+			a = 100
+			b = 'palavra'
+			c = -50
+
+			if (b.length > 7) {
+				console.log(b)
+			} else {
+				console.log(a + c)
+			}
+			
+		</script>
+	</body>
+</html>
