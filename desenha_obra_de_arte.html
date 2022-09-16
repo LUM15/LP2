@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--Local em que fica armazenado o conteudo a ser renderizado no navegador-->
+<!--Local que recebe a <tag> que inidica a lingua da pagina-->
+<html lang="pt-br">
+	<!--Local em que ficarao armazenadas as informacoes que serao passadas ao navegador-->
+	<head>
+		<!--<meta> para padrao de caracteres da pagina-->
+		<meta charset="UTF-8">
+		<!--<link> para indicar o arquivo CSS que personalizara o documento HTML-->
+		<link rel="stylesheet" href="reset.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<canvas width="1280" height="800"></canvas>
+		<script>
+			var tela = document.querySelector('canvas');
+			var pincel = tela.getContext('2d');
+			
+			function desenhaQuadrado(x, y, tamanho, cor) {
+				pincel.fillStyle = cor;
+				pincel.fillRect(x, y, tamanho, tamanho)
+				pincel.fill();
+			}
+
+			function desenhaCirculo(x, y, raio, cor) {
+
+				pincel.fillStyle = cor;
+				pincel.beginPath();
+				pincel.arc(x, y, raio, 0, 2 * 3.14);
+				pincel.fill();
+
+			}
+
+			function desenhaPaletaDeCores() {
+
+				desenhaQuadrado(xVermelho, yQuadrados, tamanhoQuadrados, 'red');
+				desenhaQuadrado(xVerde, yQuadrados, tamanhoQuadrados, 'green');
+				desenhaQuadrado(xAzul, yQuadrados, tamanhoQuadrados, 'blue');
+
+			}
+
+			function lidaComMovimentoDoMouse(evento) {
+
+				var x = evento.pageX - tela.offsetLeft;
+				var y = evento.pageY - tela.offsetTop;
+
+				if(desenha && y > tamanhoQuadrados + 4) {
+
+					desenhaCirculo(x, y, 5, corAtual);
+				}
+			}
+
+			function habilitaDesenhar() {
+					
+				desenha = true;
+			}
+
+			function desabilitaDesenhar() {
+
+				desenha = false;
+			}
+			
+			function identificaLocalizacaoClique(evento)	{
+				var coordX = evento.pageX - tela.offsetLeft;
+				var coordY = evento.pageY - tela.offsetTop;
+				
+				for (var i = 0; i < 3; i++) {
+					if (coordX >= i * tamanhoQuadrados
+						&& coordX <= tamanhoQuadrados + tamanhoQuadrados * i
+						&& coordY >= yQuadrados 
+						&& coordY <= yQuadrados + tamanhoQuadrados) {
+					
+							corAtual = cores[i];
+					
+					}
+				}
+			}
+			
+			var desenha = false;
+			var cores = ['red', 'green', 'blue'];
+			var corAtual = 'blue';
+			var xVermelho = 0;
+			var xVerde  = 50;
+			var xAzul = 100;
+			var yQuadrados = 0;
+			var tamanhoQuadrados = 50;
+
+			desenhaPaletaDeCores(); // mostra os quadrados de seleção de cores
+
+			tela.onmousemove = lidaComMovimentoDoMouse;
+
+			tela.onmousedown = habilitaDesenhar;
+
+			tela.onmouseup = desabilitaDesenhar;
+			
+			tela.onclick = identificaLocalizacaoClique;
+
+		</script>
+	</body>
+</html>
