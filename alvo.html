@@ -15,10 +15,17 @@
 		<script>
 			var tela = document.querySelector('canvas');
 			var pincel = tela.getContext('2d');
+			
 			//Alvo
 			var xAlvo = mudaPosicaoAlvo(1280);
 			var yAlvo = mudaPosicaoAlvo(800);
 			var raio = 10;
+			var hitbox = 30;
+			
+			//Contador de acertos
+			var quantidadeAcertos = 0;
+			var tempo = 2500;
+			var pontuacao = "Pontos: "
 
 			function fundo(x, y, largura, altura, cor) {
 				pincel.fillStyle = 'black';
@@ -37,8 +44,16 @@
 				var coordX = evento.pageX - tela.offsetLeft;
 				var coordY = evento.pageY - tela.offsetTop;
 				
-				if (coordX >= xAlvo - raio && coordX <= xAlvo + raio && coordY >= yAlvo - raio && coordY <= yAlvo + raio) {
-					console.log('Acertou!');
+				if (coordX >= xAlvo - hitbox 
+					&& coordX <= xAlvo + hitbox 
+					&& coordY >= yAlvo - hitbox 
+					&& coordY <= yAlvo + hitbox) {
+				
+						quantidadeAcertos++;
+						clearInterval(temporizador);
+						atualizaTela();
+						temporizador = setInterval(atualizaTela, tempo);
+					
 				}
 			
 			}
@@ -51,19 +66,27 @@
 			
 			function mudaPosicaoAlvo(maximo){
 			
-				return Math.floor(Math.random() * maximo);
+				return Math.floor(Math.random() * maximo + 20);
+			}
+			
+			function desenhaTexto(texto) {
+				pincel.font ='15px Consolas';
+				pincel.fillStyle = "white";
+				pincel.fillText(texto + quantidadeAcertos, 20, 20);    
 			}
 			
 			function atualizaTela() {
 				pincel.clearRect(0, 0, 1280, 800);
-				xAlvo = mudaPosicaoAlvo(1280);
-				yAlvo = mudaPosicaoAlvo(800);
+				desenhaTexto(pontuacao);
+				xAlvo = mudaPosicaoAlvo(1200);
+				yAlvo = mudaPosicaoAlvo(720);
 				desenhaAlvo(xAlvo, yAlvo, raio);
 			}
 			
-			setInterval(atualizaTela, 2500);
+			atualizaTela();
+			//Temporizador
+			var temporizador = setInterval(atualizaTela, tempo);
 			tela.onclick = dispara;
-
 			
 		</script>
 	</body>
